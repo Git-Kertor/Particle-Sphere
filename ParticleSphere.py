@@ -45,6 +45,8 @@ def hsv2rgb(h,s,v):
 
 display = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption('SphereASCII')
+
+#init points and add to array
 CreateSpherePoints()
 
 particle = pygame.image.load("particle.png").convert_alpha()
@@ -59,26 +61,20 @@ while on:
 		k = np.array([0,1,0])
 		theta = time
 		rotatedPoint = RotateVector(v, k, theta)
-
 		#rotated vectors
 		rx = rotatedPoint[0] * radius + window_width / 2
 		ry = rotatedPoint[1] * radius + window_height / 2
 		rz = rotatedPoint[2] * 3 + 10
-
 		#color properties
 		cx = float(rx) / float(window_width)
 		cy = float(rz) / 13.0
 		cz = float(rz) / 13.0
-
+		#create image with color
 		render = SetColor(particle, hsv2rgb(cx, cy, cz))
 		render = pygame.transform.scale(render, (rz, rz))
 		display.blit(render, (rx, ry))
-		
-
-	
 	pygame.display.update()
 	pygame.display.flip()
-
 	for event in pygame.event.get():
 		if event.type == pygame.QUIT:
 		    on = False
